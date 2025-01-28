@@ -90,7 +90,8 @@
         <div class="row">
           <div class="col-md-6 ">
             <div class="detail-box">
-              <h1>$(hostname -f)</h1>
+              <h1>Repair</h1>
+              <p>Private IP: <span id="ip-address">Loading...</span></p>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui harum voluptatem adipisci. Quos molestiae saepe dicta nobis pariatur, tempora iusto, ad possimus soluta hic praesentium mollitia consequatur beatae, aspernatur culpa.
               </p>
@@ -109,6 +110,19 @@
     </section>
     <!-- end slider section -->
   </div>
+
+  <script>
+    // Fetch the private IP from EC2 metadata
+    fetch("http://169.254.169.254/latest/meta-data/local-ipv4")
+      .then(response => response.text())
+      .then(ip => {
+        document.getElementById("ip-address").textContent = ip;
+      })
+      .catch(error => {
+        console.error("Error fetching IP:", error);
+        document.getElementById("ip-address").textContent = "Error fetching IP";
+      });
+  </script>
 
   <!-- feature section -->
   <section class="feature_section">
